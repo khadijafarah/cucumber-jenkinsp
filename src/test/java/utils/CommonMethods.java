@@ -25,10 +25,17 @@ public class CommonMethods extends PageInitializers {
         switch (ConfigReader.getPropertyValue("browser")){
             case "chrome":
                 System.out.println("iam here");
-                ChromeOptions chromeOptions=new ChromeOptions();
-                chromeOptions.setHeadless(true);
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver(chromeOptions);
+                if(ConfigReader.getPropertyValue("headless").equals("true")) {
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.setHeadless(true);
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver(chromeOptions);
+                }
+                else
+                {
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+                }
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
